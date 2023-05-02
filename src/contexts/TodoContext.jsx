@@ -1,27 +1,15 @@
-import { useState, useEffect, createContext, useReducer } from 'react';
+import {  useEffect, createContext, useReducer } from 'react';
 import * as TodoAPIServices from '../services/todoServices';
 import todoReducer from '../reducers/todoReducer';
 import { INIT_TODO } from '../reducers/todoReducer';
 import { FETCH_TODO, ADD_TODO, EDIT_TODO, DELETE_TODO, SEARCH_TODO,SELECT_TODO_LIST } from '../reducers/todoReducer';
-// Create Context => Context Object (NAME)  ใช้ได้ 2 ที่
-// #1 Provider : Wrapper Component => Shared Data,Logic ได้
-// #2 Consumer : Component ที่ต้องการใช้ Data,Logic (Subscribe Component)
 export const TodoContext = createContext();
 
-// สร้าง Provider : Wrapper Component
+
 function TodoContextProvider(props) {
-    const [todos, setTodos] = useState([]);
-    const [todosFilter, setTodosFilter] = useState([]);
-
-    // USE_REDUCER : ครูตุ่ดตู่กับครูเต้คุยกันรู้เรื่อง
-    // Param1 : ใครเป็นคนสรุป ? => ครูเต้ == todoReducer
-    // Param2 : state ตั้งต้นคือ ? => คะแนนตั้งต้น
+  
     const [allTodoList, dispatch] = useReducer(todoReducer, INIT_TODO);
-    // Return arr[0] : State(Init,updated)
-    // Return arr[1] : dispatch Function : สมุดใบสั่ง
-    console.log('STATE', allTodoList);
-    // console.log("dispatch",dispatchTodo)
-
+    
     // GET : FETCH
     async function fetchAllTodo() {
         try {
