@@ -1,9 +1,8 @@
 import { useState, useEffect, createContext, useReducer } from 'react';
 import * as TodoAPIServices from '../services/todoServices';
-import { getSevenDayRange } from '../utils/DateUtils';
 import todoReducer from '../reducers/todoReducer';
 import { INIT_TODO } from '../reducers/todoReducer';
-import { FETCH_TODO, ADD_TODO, EDIT_TODO, DELETE_TODO } from '../reducers/todoReducer';
+import { FETCH_TODO, ADD_TODO, EDIT_TODO, DELETE_TODO, SEARCH_TODO,SELECT_TODO_LIST } from '../reducers/todoReducer';
 // Create Context => Context Object (NAME)  ใช้ได้ 2 ที่
 // #1 Provider : Wrapper Component => Shared Data,Logic ได้
 // #2 Consumer : Component ที่ต้องการใช้ Data,Logic (Subscribe Component)
@@ -73,26 +72,12 @@ function TodoContextProvider(props) {
     };
 
     // FILTER BY LISTS
-    const selectList = (selectedIndex) => {
-        const [today, nextSevenDay] = getSevenDayRange();
-        if (selectedIndex == 0) {
-            setTodosFilter(todos);
-        } else if (selectedIndex == 1) {
-            const newTodo = todos.filter((todo) => todo.date === today);
-            setTodosFilter(newTodo);
-        } else if (selectedIndex == 2) {
-            const newTodo = todos.filter((todo) => todo.date >= today && todo.date <= nextSevenDay);
-            setTodosFilter(newTodo);
-        }
-    };
+    const selectList = (selectedIndex) => dispatch({type:SELECT_TODO_LIST, payload : {selectedIndex}})
+    
 
     // SEARCH TODO
-    const searchTodo = (searchValue) => {
-        const newTodo = todos.filter((todo) =>
-            todo.task.toLowerCase().includes(searchValue.toLowerCase())
-        );
-        setTodosFilter(newTodo);
-    };
+    const searchTodo = (searchValue) =>
+        dispatch({ type: SEARCH_TODO, payload: { searchText: searchValue } });
 
     return (
         <TodoContext.Provider
