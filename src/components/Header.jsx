@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 // Function Component
 export function Header() {
     // React HOOK
-    const { searchTodo } = useTodo(); // *3
+    // const { searchTodo } = useTodo(); // *3
     const [searchValue, setSearchValue] = useState('');
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        searchTodo(e.target.value); // *edit
+        // searchTodo(e.target.value); // *edit
     };
     return (
         <header className='header'>

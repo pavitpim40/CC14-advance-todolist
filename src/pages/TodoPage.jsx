@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Header } from '../components/Header';
 import { SideBar } from '../components/SideBar';
 import { TodoContent } from '../components/Todo/TodoContent';
-import TodoContextProvider from '../contexts/TodoContext';
+
+import {useDispatch} from 'react-redux'
+import { fetchAllTodo } from '../store/slices/todoSlice';
 
 function TodoPage() {
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(fetchAllTodo())
+    },[])
     return (
-        <TodoContextProvider>
             <div className='container'>
                 <Header />
                 <SideBar />
                 <TodoContent />
             </div>
-        </TodoContextProvider>
     );
 }
 
