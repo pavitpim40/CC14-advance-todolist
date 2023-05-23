@@ -1,5 +1,6 @@
 import { useState } from 'react';
-// import { useTodo } from '../../hooks/useTodo';
+import {useDispatch} from 'react-redux'
+import { createTodo } from '../../store/slices/todoSlice';
 import PropTypes from 'prop-types';
 import styles from './TodoForm.module.scss';
 
@@ -21,6 +22,7 @@ export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
     const [task, setTask] = useState(oldTodo?.task || '');
     const [error, setError] = useState(false);
     const [date, setDate] = useState(null);
+    const dispatch = useDispatch()
 
     // Other function
     const validate = (text) => {
@@ -49,6 +51,7 @@ export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
         if (validTask && !oldTodo) {
             // onAddTodo?.(task);
             // addTodo?.(task);
+            dispatch(createTodo({task}))
             onSetShow(false);
         } else if (validTask && oldTodo) {
             // console.log(oldTodo.id)
