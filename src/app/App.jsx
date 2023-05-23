@@ -1,12 +1,12 @@
 import './App.scss';
 import Router from '../routes/Router';
-import { useAuth } from '../hooks/useAuth';
+import {useSelector} from 'react-redux';
 
 function App() {
-    // let isLogin  = true;
-    const { user, isAuth } = useAuth();
 
-    return <Router isAuthenticate={isAuth} />;
+    const user = useSelector(state=> state.auth.user)
+
+    return <Router user={user} />;
 }
 
 export default App;
