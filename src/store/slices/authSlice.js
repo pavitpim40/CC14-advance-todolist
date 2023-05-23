@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    user: { userId: 20, firstName: 'Job', lastName: 'Keow' },
+    user: null,
 };
 
 // #1 createSlice
@@ -13,7 +13,7 @@ export const authSlice = createSlice({
             const { email, password } = action.payload;
 
             if ((email === 'codecamp@mail.com', password === '1234')) {
-                state.user = { userId: 20, firstName: 'Job', lastName: 'Keow' };
+                state.user = { userId: 21, firstName: 'Job', lastName: 'Keow' };
                 localStorage.setItem('token', 'mock_token');
             }
         },

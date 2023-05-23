@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import {useDispatch} from 'react-redux';
+import {login} from '../store/slices/authSlice'
 import { Link } from 'react-router-dom';
 import AuthPhoto from '../assets/auth.png';
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuth();
+    const dispatch = useDispatch();
 
     const submitLogin = (e) => {
         e.preventDefault();
-        login(email,password)
+        dispatch(login({email,password}))
     
     };
 
