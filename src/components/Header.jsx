@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { FaHome, FaSearch } from 'react-icons/fa';
-// import Avatar  from '@mui/material/Avatar';
 import { Avatar } from '@mui/material';
 import UserPhoto from '../assets/user.jpeg';
-import { useTodo } from '../hooks/useTodo';
 import { Link } from 'react-router-dom';
+import {useDispatch} from 'react-redux'
+import { searchTodo } from '../store/slices/todoSlice';
 
 // Function Component
 export function Header() {
     // React HOOK
-    // const { searchTodo } = useTodo(); // *3
     const [searchValue, setSearchValue] = useState('');
+    const dispatch = useDispatch()
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        // searchTodo(e.target.value); // *edit
+        dispatch(searchTodo({searchValue: e.target.value}))
     };
     return (
         <header className='header'>

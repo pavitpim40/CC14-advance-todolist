@@ -1,19 +1,18 @@
 import { useState } from 'react'; // *1
-// import { useTodo } from '../hooks/useTodo';
 import { FaInbox, FaRegCalendar, FaRegCalendarAlt, FaChevronDown } from 'react-icons/fa';
 import { Button } from '../components/Common/Button';
 import {useDispatch} from 'react-redux'
 import {logout} from '../store/slices/authSlice'
+import { selectList } from '../store/slices/todoSlice';
 
 export function SideBar() {
-    // const { selectList } = useTodo(); // *3
 
     const [selectedIndex, setSelectedIndex] = useState(0);
     const dispatch = useDispatch();
 
     const handleSelectList = (index) => {
         setSelectedIndex(index);
-        // selectList(index); // *
+        dispatch(selectList({selectedIndex : index}));
     };
 
     return (

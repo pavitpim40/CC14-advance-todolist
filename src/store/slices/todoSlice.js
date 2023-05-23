@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as TodoAPIServices from '../../services/todoServices';
+import { getSevenDayRange } from '../../utils/DateUtils';
 
 const initialState = {
     todos: [],
@@ -19,15 +20,28 @@ export const todoSlice = createSlice({
         },
         editTodo: (state, action) => {},
         deleteTodo: (state, action) => {},
-        selectList: (state, action) => {},
-        searchTodo: (state, action) => {},
+        selectList: (state, action) => {
+            const { selectedIndex } = action.payload;
+            const [today, nextSevenDay] = getSevenDayRange();
+            if (selectedIndex == 0) state.todosFilter = state.todos;
+            else if (selectedIndex == 1)
+                state.todosFilter = state.todos.filter((todo) => todo.date === today);
+            else if (selectedIndex == 2)
+                state.todosFilter = state.todos.filter(
+                    (todo) => todo.date >= today && todo.date <= nextSevenDay
+                );
+        },
+        searchTodo: (state, action) => {
+            const { searchValue } = action.payload;
+            state.todosFilter = state.todos.filter((todo) =>
+                todo.task.toLowerCase().includes(searchValue.toLowerCase())
+            );
+        },
     },
 });
 
 export const { addTodo, editTodo, deleteTodo, selectList, searchTodo, getAllTodo } =
     todoSlice.actions;
-
-export default todoSlice.reducer;
 
 // Thunk Middleware
 export const fetchAllTodo = () => {
@@ -41,3 +55,5 @@ export const fetchAllTodo = () => {
         }
     };
 };
+
+export default todoSlice.reducer;
