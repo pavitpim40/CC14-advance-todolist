@@ -5,8 +5,48 @@ import { Box, Grid, Typography, Button } from '@mui/material';
 import { UserAvatar } from '../components/Common/UserAvatar';
 import { Input } from '../components/Common/Input';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class ProfilePage extends Component {
+    constructor(props) {
+        super(props)
+        this.handleChangeInput = this.handleChangeInput.bind(this)
+    }
+
+    state = {
+        firstName :"",
+        lastName : "",
+        email: "",
+        birthDate : "",
+    }
+
+    componentDidMount() {
+        (async ()=> {
+            const response = await axios.get('https://jsonplaceholder.typicode.com/users/1')
+            // console.log(response.data)
+            const {name,email} = response.data
+
+            this.setState({firstName: name.split(" ")[0], lastName: name.split(" ")[1], email, birthDate: "1990-05-09"})
+        })().catch(error => {
+            console.log(error)
+        })
+    }
+    
+    componentDidUpdate(prevProps,prevState,snapShot) {
+        console.log(prevState)
+    }
+
+    componentWillUnmount() {
+        console.log("I'm Dead")
+    }
+
+    handleChangeInput (event) {
+        this.setState({[event.target.name] : event.target.value})
+    }
+
+   
+
+
     render() {
         return (
             <>
@@ -31,6 +71,8 @@ class ProfilePage extends Component {
                                 placeholder='your first name'
                                 name='firstName'
                                 error={false}
+                                value={this.state.firstName}
+                                onChange={this.handleChangeInput}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -39,19 +81,32 @@ class ProfilePage extends Component {
                                 placeholder='your last name'
                                 name='lastName'
                                 error={false}
+                                value={this.state.lastName}
+                                onChange={this.handleChangeInput}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <Input
-                                label={<h1>Last Name</h1>}
+                                label={<h1>Email</h1>}
                                 placeholder='example@mail.com'
                                 name='email'
                                 type='email'
+                                value={this.state.email}
+                                onChange={this.handleChangeInput}
                                 error={false}
+                               
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <Input name='date' type='date' error={false} />
+                            <Input 
+                            name='birthDate' 
+                            type='date' 
+                            error={false} 
+                            value={this.state.birthDate} 
+                            onChange={(e)=> {
+                                this.setState({birthDate : e.target.value})
+                            }}
+                            />
                         </Grid>
                         <Grid item xs={6}>
                             <Link to='/todo'>
