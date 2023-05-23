@@ -33,6 +33,7 @@ export const todoSlice = createSlice({
         },
         searchTodo: (state, action) => {
             const { searchValue } = action.payload;
+            console.log('me');
             state.todosFilter = state.todos.filter((todo) =>
                 todo.task.toLowerCase().includes(searchValue.toLowerCase())
             );

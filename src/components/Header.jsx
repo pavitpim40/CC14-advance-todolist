@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaHome, FaSearch } from 'react-icons/fa';
 import { Avatar } from '@mui/material';
 import UserPhoto from '../assets/user.jpeg';
@@ -12,9 +12,19 @@ export function Header() {
     const [searchValue, setSearchValue] = useState('');
     const dispatch = useDispatch()
 
+    useEffect(()=>{
+
+        const id = setTimeout(()=>{
+            dispatch(searchTodo({searchValue: searchValue}))
+        },1000)
+
+        return () => clearTimeout(id)
+        // dispatch(searchTodo({searchValue: searchValue}))
+    },[searchValue])
+
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        dispatch(searchTodo({searchValue: e.target.value}))
+     
     };
     return (
         <header className='header'>
