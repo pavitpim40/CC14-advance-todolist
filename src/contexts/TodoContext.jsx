@@ -107,7 +107,7 @@ function TodoContextProvider(props) {
         if (selectedIndex == 0) {
             setTodosFilter(todos);
         } else if (selectedIndex == 1) {
-            const newTodo = todos.filter((todo) => todo.date === today);
+                const newTodo = todos.filter((todo) => todo.date === today);
             setTodosFilter(newTodo);
         } else if (selectedIndex == 2) {
             const newTodo = todos.filter((todo) => todo.date >= today && todo.date <= nextSevenDay);

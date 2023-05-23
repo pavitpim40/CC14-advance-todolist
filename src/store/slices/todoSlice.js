@@ -9,7 +9,9 @@ export const todoSlice = createSlice({
     name: 'todo',
     initialState,
     reducers: {
-        addTodo: (state, action) => {},
+        addTodo: (state, action) => {
+            // action = {type: ... , payload : {}}
+        },
         editTodo: (state, action) => {},
         deleteTodo: (state, action) => {},
         selectList: (state, action) => {},

@@ -5,15 +5,12 @@ import AuthPhoto from '../assets/auth.png';
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, setUser, isAuth, setIsAuth } = useAuth();
+    const { login } = useAuth();
 
-    const login = (e) => {
+    const submitLogin = (e) => {
         e.preventDefault();
-
-        if (email === 'codecamp@mail.com' && password === '1234') {
-            setIsAuth(true);
-            setUser({userId:20, firstName: "Job", lastName: "Keow"})
-        }
+        login(email,password)
+    
     };
 
     return (
@@ -28,7 +25,7 @@ function LoginPage() {
             <div className='flex-1 flex items-center justify-center'>
                 <div className='m-[100px] flex flex-col gap-8 w-[80%]'>
                     <h1 className='text-8xl font-bold mb-12'>Login</h1>
-                    <form className='flex flex-col gap-4' onSubmit={login}>
+                    <form className='flex flex-col gap-4' onSubmit={submitLogin}>
                         <input
                             type='email'
                             placeholder='example@mail.com'
