@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTodo } from '../../hooks/useTodo';
+
 import PropTypes from 'prop-types';
 import styles from './TodoForm.module.scss';
 
@@ -16,7 +16,7 @@ TodoForm.propTypes = {
 
 export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
     // Consumer : TodoContext
-    const { addTodo, editTodo } = useTodo(); //#3 consume
+  
     // State
     const [task, setTask] = useState(oldTodo?.task || '');
     const [error, setError] = useState(false);
@@ -48,11 +48,9 @@ export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
         let validTask = validate(task);
         if (validTask && !oldTodo) {
             // onAddTodo?.(task);
-            addTodo?.(task);
             onSetShow(false);
         } else if (validTask && oldTodo) {
             // console.log(oldTodo.id)
-            editTodo(oldTodo.id, { ...oldTodo, task });
             onSetShow(false);
         }
     };

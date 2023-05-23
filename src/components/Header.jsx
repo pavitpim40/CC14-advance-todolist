@@ -3,18 +3,16 @@ import { FaHome, FaSearch } from 'react-icons/fa';
 // import Avatar  from '@mui/material/Avatar';
 import { Avatar } from '@mui/material';
 import UserPhoto from '../assets/user.jpeg';
-import { useTodo } from '../hooks/useTodo';
 import { Link } from 'react-router-dom';
 
 // Function Component
 export function Header() {
     // React HOOK
-    const { searchTodo } = useTodo(); // *3
     const [searchValue, setSearchValue] = useState('');
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        searchTodo(e.target.value); // *edit
+
     };
     return (
         <header className='header'>

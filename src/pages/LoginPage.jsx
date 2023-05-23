@@ -1,18 +1,15 @@
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import AuthPhoto from '../assets/auth.png';
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { user, setUser, isAuth, setIsAuth } = useAuth();
 
     const login = (e) => {
         e.preventDefault();
 
         if (email === 'codecamp@mail.com' && password === '1234') {
-            setIsAuth(true);
-            setUser({userId:20, firstName: "Job", lastName: "Keow"})
+         
         }
     };
 
