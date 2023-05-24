@@ -1,6 +1,6 @@
 import styles from './TodoHeader.module.scss';
-import {HiOutlineSwitchVertical} from 'react-icons/hi'
-import {Button} from '../Common/Button'
+import { HiOutlineSwitchVertical } from 'react-icons/hi';
+import { Button } from '../Common/Button';
 
 export function TodoHeader() {
     let today = new Date();
@@ -14,11 +14,11 @@ export function TodoHeader() {
             </div>
 
             <div className={styles.header__control__bar}>
-                <Button text="status" />
-                <Button text="date"  active={false}/>
-                <Button text="task"  active={false} />
+                <Button text='status' />
+                <Button text='date' active={false} />
+                <Button text='task' active={false} />
                 <span className={styles.control__bar__icon}>
-                    <HiOutlineSwitchVertical/>
+                    <HiOutlineSwitchVertical />
                 </span>
             </div>
         </div>

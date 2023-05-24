@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as TodoServices from '../../services/todoServices';
-import { act } from 'react-dom/test-utils';
+import { getSevenDayRange } from '../../utils/DateUtils';
 
 const initialTodo = {
     todos: [],
     todosFilter: [],
+    loading: false,
+    error: { message: '' },
 };
 
 export const todoSlice = createSlice({
@@ -28,8 +30,28 @@ export const todoSlice = createSlice({
             state.todos = state.todos.filter((todo) => todo.id != todoId);
             state.todosFilter = state.todos.filter((todo) => todo.id != todoId);
         },
-        filterTodo: () => {},
-        searchTodo: () => {},
+        filterTodo: (state, action) => {
+            const { selectedIndex } = action.payload;
+            const [today, nextSevenDay] = getSevenDayRange();
+            // today : "2023-05-24"
+            // next : "2023-06-01"
+            if (selectedIndex === 0) {
+                state.todosFilter = state.todos;
+            } else if (selectedIndex === 1) {
+                state.todosFilter = state.todos.filter((todo) => todo.date === today);
+            } else if (selectedIndex === 2) {
+                state.todosFilter = state.todos.filter(
+                    (todo) => todo.date >= today && todo.date <= nextSevenDay
+                );
+            }
+        },
+        searchTodo: (state, action) => {
+            const { searchValue } = action.payload;
+
+            state.todosFilter = state.todos.filter((todo) =>
+                todo.task.toLowerCase().includes(searchValue.toLowerCase())
+            );
+        },
     },
 });
 
@@ -37,7 +59,7 @@ export const todoSlice = createSlice({
 export default todoSlice.reducer;
 
 // ACTION CREATOR : Function ที่สร้าง Action Object = {type:"todo/blabla", payload:arg }
-const { getTodo, addTodo, removeTodo } = todoSlice.actions;
+export const { getTodo, addTodo, removeTodo, searchTodo, filterTodo } = todoSlice.actions;
 
 // ################################################
 // Async Task

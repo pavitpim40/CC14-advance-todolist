@@ -1,15 +1,16 @@
 import { useState } from 'react'; // *1
 import { FaInbox, FaRegCalendar, FaRegCalendarAlt, FaChevronDown } from 'react-icons/fa';
 import { Button } from '../components/Common/Button';
-
+import { useDispatch } from 'react-redux';
+import { filterTodo } from '../stores/slices/todoSlice';
 
 export function SideBar() {
-
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const dispatch = useDispatch();
 
     const handleSelectList = (index) => {
         setSelectedIndex(index);
-       
+        dispatch(filterTodo({ selectedIndex: index }));
     };
 
     return (
@@ -84,7 +85,6 @@ export function SideBar() {
                 <Button text={10} active={false} />
                 <Button text={25} active={false} />
                 <Button text={'Log out'} active={true} />
-            
             </section>
         </aside>
     );
