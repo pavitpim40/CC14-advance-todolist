@@ -1,5 +1,6 @@
 import { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { createTodo } from '../../stores/slices/todoSlice';
 import PropTypes from 'prop-types';
 import styles from './TodoForm.module.scss';
 
@@ -16,11 +17,12 @@ TodoForm.propTypes = {
 
 export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
     // Consumer : TodoContext
-  
+
     // State
     const [task, setTask] = useState(oldTodo?.task || '');
     const [error, setError] = useState(false);
     const [date, setDate] = useState(null);
+    const dispatch = useDispatch();
 
     // Other function
     const validate = (text) => {
@@ -47,10 +49,11 @@ export function TodoForm({ textConfirm, onSetShow, oldTodo }) {
         e.preventDefault();
         let validTask = validate(task);
         if (validTask && !oldTodo) {
-            // onAddTodo?.(task);
+            // dispatch for Create
+            dispatch(createTodo(task));
             onSetShow(false);
         } else if (validTask && oldTodo) {
-            // console.log(oldTodo.id)
+            // dispatch for Update
             onSetShow(false);
         }
     };

@@ -1,20 +1,23 @@
 import styles from './TodoItem.module.scss';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteTodo } from '../../stores/slices/todoSlice';
 import { TodoForm } from './TodoForm';
 import { HiCheck, HiPencil, HiTrash } from 'react-icons/hi';
 import { convertDate } from '../../utils/DateUtils';
 
 export function TodoItem({ todo }) {
     // ** Consume
-    // state 
+    // state
     const [isEdit, setIsEdit] = useState(false);
- 
+    const dispatch = useDispatch();
+
     const handleClickEditIcon = () => setIsEdit(true);
 
-    const handleClickCheckBox = () => {
-    };
+    const handleClickCheckBox = () => {};
 
     const handleClickDeleteBox = () => {
+        dispatch(deleteTodo(todo.id));
     };
 
     return (
@@ -39,11 +42,7 @@ export function TodoItem({ todo }) {
                     </div>
                 </li>
             ) : (
-                <TodoForm
-                    textConfirm='Edit task'
-                    onSetShow={setIsEdit}
-                    oldTodo={todo}
-                />
+                <TodoForm textConfirm='Edit task' onSetShow={setIsEdit} oldTodo={todo} />
             )}
         </>
     );
