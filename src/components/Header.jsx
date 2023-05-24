@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaHome, FaSearch } from 'react-icons/fa';
 // import Avatar  from '@mui/material/Avatar';
 import { Avatar } from '@mui/material';
@@ -12,10 +12,22 @@ export function Header() {
     // React HOOK
     const [searchValue, setSearchValue] = useState('');
     const dispatch = useDispatch();
+    // Debouncing
+    useEffect(() => {
+        const id = setTimeout(() => {
+            // console.log('useEffect')
+            dispatch(searchTodo({ searchValue: searchValue }));
+        }, 2000);
+
+        return () => {
+            console.log('Cleanup');
+            clearTimeout(id);
+        };
+    }, [searchValue]);
 
     const handleChange = (e) => {
         setSearchValue(e.target.value);
-        dispatch(searchTodo({ searchValue: e.target.value }));
+        // dispatch(searchTodo({ searchValue: e.target.value }));
     };
     return (
         <header className='header'>
